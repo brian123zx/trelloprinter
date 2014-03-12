@@ -2,6 +2,8 @@ var onAuthorize = function() {
     updateLoggedIn();
     $("#output").empty();
 
+    getBoards();
+
     Trello.members.get("me", function(member){
         $("#fullName").text(member.fullName);
 
@@ -25,6 +27,12 @@ var onAuthorize = function() {
 
 };
 
+var getBoards = function() {
+  Trello.boards.get('me', function(r) {
+    console.log(this, arguments);
+  });
+};
+
 var updateLoggedIn = function() {
     var isLoggedIn = Trello.authorized();
     $("#loggedout").toggle(!isLoggedIn);
@@ -36,19 +44,22 @@ var logout = function() {
     updateLoggedIn();
 };
 
-Trello.authorize({
-    interactive:false,
-    success: onAuthorize
-});
+$(function() {
 
-$("#connectLink")
-  .click(function(){
-    Trello.authorize({
-        type: "popup",
-        name: 'Trello Printer',
-        expiration: 'never',
-        success: onAuthorize
-    })
-});
+  Trello.authorize({
+      interactive:false,
+      success: onAuthorize
+  });
 
-$("#disconnect").click(logout);
+  $("#connectLink")
+    .click(function(){
+      Trello.authorize({
+          type: "popup",
+          name: 'Trello Printer',
+          expiration: 'never',
+          success: onAuthorize
+      })
+  });
+
+  $("#disconnect").click(logout);
+});
