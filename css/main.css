@@ -16,8 +16,79 @@
 #output {
     padding: 4px;
 }
+body {
+
+  width: 6in;
+  height: 4in;
+}
 
 .card {
-    display: block;
-    padding: 2px;
+/*    float: left;*/
+    height: 3in;
+    width: 5in;
+    padding: 2em;
+    position: relative;
+    margin-bottom: .25in;
+    border-bottom: 2px dashed black;
+}
+.card:first-child {
+  height: 2.8in;
+}
+.card .inner {
+  position: absolute;
+  top: 0em;
+  left: 0em;
+  right: 0em;
+  bottom: 1.5em;
+  overflow: hidden;
+}
+.card .gradient {
+  background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* IE10+ */
+  background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* W3C */
+  position: absolute;
+  bottom: 0;
+  height: 2em;
+  width: 100%;
+}
+.card .members {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  text-align: right;
+  position: absolute;
+  left: 0em;
+  bottom: 0em;
+}
+.card .members li {
+  display: inline;
+  padding: 0 .5em;
+}
+.card .points {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+h2 {
+  font-size: .3in;
+  margin-top: 0;
+}
+
+
+
+/* print styles */
+@media print {
+  body {
+    padding: 0;
+  }
+  .card:nth-child(3n) {
+     page-break-after: always;
+  }
+  #header, #boards, #lists, #loggedout {
+    display: none;
+  }
 }

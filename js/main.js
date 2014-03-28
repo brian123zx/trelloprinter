@@ -1,35 +1,103 @@
 var onAuthorize = function() {
     updateLoggedIn();
-    $("#output").empty();
 
     getBoards();
-
-    Trello.members.get("me", function(member){
-        $("#fullName").text(member.fullName);
-
-        var $cards = $("<div>")
-            .text("Loading Cards...")
-            .appendTo("#output");
-
-        // Output a list of all of the cards that the member
-        // is assigned to
-        Trello.get("members/me/cards", function(cards) {
-            $cards.empty();
-            $.each(cards, function(ix, card) {
-                $("<a>")
-                .attr({href: card.url, target: "trello"})
-                .addClass("card")
-                .text(card.name)
-                .appendTo($cards);
-            });
-        });
-    });
-
 };
 
 var getBoards = function() {
-  Trello.boards.get('me', function(r) {
-    console.log(this, arguments);
+  Trello.get('members/me/boards', function(r) {
+    $('#boards ul').empty();
+    for(i in r) {
+      b = r[i];
+      $('<li/>')
+      .attr({
+        'data-id': b.id
+      })
+      .on('click', boardClicked)
+      .text(b.name)
+      .appendTo($('#boards ul'));
+    }
+  });
+};
+
+var boardClicked = function() {
+  $('#lists ul, #cards ul').empty();
+  id = $(this).attr('data-id');
+  getLists(id);
+  getMembers(id);
+};
+
+var members = [];
+var getMembers = function(id) {
+  Trello.get('boards/' + id + '/members', function(r) {
+    members = r;
+  });
+};
+
+var getLists = function(id) {
+  Trello.get('boards/' + id + '/lists', function(r) {
+    for(i in r) {
+      l = r[i];
+      $('<li/>')
+      .attr({
+        'data-id': l.id
+      })
+      .on('click', listClicked)
+      .text(l.name)
+      .appendTo($('#lists ul'));
+    }
+  });
+}
+
+var listClicked = function() {
+  $('#cards ul').empty();
+  id = $(this).attr('data-id');
+  getCards(id);
+}
+
+var getCards = function(id) {
+  Trello.get('lists/' + id + '/cards', function(r) {
+    for(i in r) {
+      c = r[i];
+      card = $('<div/>')
+      .attr({
+        'data-id': c.id
+      })
+      .addClass('card')
+      .append(
+        $('<div/>')
+        .addClass('inner')
+        .append(
+          $('<div/>')
+          .addClass('gradient')
+        )
+        .append(
+          $('<h2>')
+          .text(c.name)
+        )
+        .append(
+          $('<div/>')
+          .html(marked(c.desc))
+        )
+      );
+
+//       process assigned members
+      memberSection = $('<ul/>').addClass('members');
+      for(j in c.idMembers) {
+        m = c.idMembers[j];
+        member = _.find(members, function(mem) {
+          return mem.id == m;
+        });
+        if(!member) continue;
+        memberSection.append(
+          $('<li/>')
+          .text(member.fullName.split(' ')[0])
+        );
+      }
+      card.append(memberSection);
+
+      card.appendTo($('#cards'));
+    }
   });
 };
 
