@@ -57,8 +57,19 @@ var listClicked = function() {
 
 var getCards = function(id) {
   Trello.get('lists/' + id + '/cards', function(r) {
-    for(i in r) {
+    for(var i in r) {
       c = r[i];
+      // parse points out of name
+      var points = c.name.split('[');
+      if (points[1]) {
+        points = points[1].replace(']', '').split(' ')[1]; //TODO: <3 potential runtime error
+      } else {
+        points = '';
+      }
+
+      // remove points from name
+      c.name = c.name.split('[')[0]
+
       card = $('<div/>')
       .attr({
         'data-id': c.id
@@ -81,9 +92,15 @@ var getCards = function(id) {
         )
       );
 
-//       process assigned members
+      card.append(
+        $('<span/>')
+        .addClass('points')
+        .html(points)
+      );
+
+      //process assigned members
       memberSection = $('<ul/>').addClass('members');
-      for(j in c.idMembers) {
+      for(var j in c.idMembers) {
         m = c.idMembers[j];
         member = _.find(members, function(mem) {
           return mem.id == m;
@@ -97,6 +114,9 @@ var getCards = function(id) {
       card.append(memberSection);
 
       card.appendTo($('#cards'));
+      if((parseInt(i)+1) % 4 == 0) {
+        $('#cards').append($('<div class="clear"/>'));
+      }
     }
   });
 };

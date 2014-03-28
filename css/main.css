@@ -18,28 +18,43 @@
 }
 body {
 
-  width: 6in;
+  width: 12in;
   height: 4in;
 }
 
 .card {
 /*    float: left;*/
-    height: 3in;
-    width: 5in;
+    height: 4in;
+    width: 5.5in;
     padding: 2em;
     position: relative;
-    margin-bottom: .25in;
+    margin-bottom: .1in;
+    margin-right: .1in;
     border-bottom: 2px dashed black;
+    border-right: 2px dashed black;
+    float: left;
 }
-.card:first-child {
+.card:nth-child(5n+2) {
+  border-right: none;
+}
+.card:nth-child(5n+4) {
+  border-right: none;
+}
+.card:nth-child(5n+3) {
+  border-bottom: none;
+}
+.card:nth-child(5n+4) {
+  border-bottom: none;
+}
+/*.card:first-child {
   height: 2.8in;
-}
+}*/
 .card .inner {
   position: absolute;
   top: 0em;
   left: 0em;
-  right: 0em;
-  bottom: 1.5em;
+  right: .1in;
+  bottom: .4in;
   overflow: hidden;
 }
 .card .gradient {
@@ -61,21 +76,26 @@ body {
   text-align: right;
   position: absolute;
   left: 0em;
-  bottom: 0em;
+  bottom: .1in;
 }
 .card .members li {
   display: inline;
   padding: 0 .5em;
+  float: left;
 }
 .card .points {
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: .1in;
+  right: .1in;
+  font-size: .25in;
 }
 
 h2 {
   font-size: .3in;
   margin-top: 0;
+}
+.clear {
+  clear:both;
 }
 
 
@@ -85,8 +105,12 @@ h2 {
   body {
     padding: 0;
   }
-  .card:nth-child(3n) {
-     page-break-after: always;
+  .card:nth-child(4n) {
+    /*clear: both;*/
+    /*page-break-after: always;*/
+  }
+  .clear {
+    page-break-before: always;
   }
   #header, #boards, #lists, #loggedout {
     display: none;
