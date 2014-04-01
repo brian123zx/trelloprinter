@@ -1,7 +1,11 @@
 var onAuthorize = function() {
-    updateLoggedIn();
 
     getBoards();
+
+    Trello.members.get("me", function(member) {
+      $("#fullName").text(member.fullName);
+      updateLoggedIn();
+    });
 };
 
 var getBoards = function() {
