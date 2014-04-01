@@ -17,9 +17,29 @@
     padding: 4px;
 }
 body {
+}
 
+#boards,#lists {
+  width: 300px;
+  display: inline-block;
+  float: left;
+}
+
+ul {
+  height: 150px;
+  overflow-y: auto;
+  padding: 0;
+}
+
+li {
+  cursor: pointer;
+  list-style-type: none;
+}
+
+#cards {
   width: 12in;
   height: 4in;
+  clear: both;
 }
 
 .card {
@@ -96,6 +116,7 @@ h2 {
 }
 .clear {
   clear:both;
+  border: 1px solid transparent;
 }
 
 

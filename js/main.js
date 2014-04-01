@@ -50,7 +50,7 @@ var getLists = function(id) {
 }
 
 var listClicked = function() {
-  $('#cards ul').empty();
+  $('#cards').empty();
   id = $(this).attr('data-id');
   getCards(id);
 }
@@ -112,8 +112,7 @@ var getCards = function(id) {
         );
       }
       card.append(memberSection);
-
-      card.appendTo($('#cards'));
+      $('#cards').append(card);
       if((parseInt(i)+1) % 4 == 0) {
         $('#cards').append($('<div class="clear"/>'));
       }
