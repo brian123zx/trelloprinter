@@ -126,6 +126,9 @@ h2 {
   body {
     padding: 0;
   }
+  #forkme {
+    display: none;
+  }
   .card:nth-child(4n) {
     /*clear: both;*/
     /*page-break-after: always;*/
