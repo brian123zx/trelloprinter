@@ -25,7 +25,7 @@ body {
   float: left;
 }
 
-ul {
+#boards ul, #lists ul {
   height: 150px;
   overflow-y: auto;
   padding: 0;
@@ -53,6 +53,7 @@ li {
     border-bottom: 2px dashed black;
     border-right: 2px dashed black;
     float: left;
+    font-size: .2in;
 }
 .card:nth-child(5n+2) {
   border-right: none;
@@ -111,7 +112,7 @@ li {
 }
 
 h2 {
-  font-size: .3in;
+  font-size: .36in;
   margin-top: 0;
 }
 .clear {
