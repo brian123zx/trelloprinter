@@ -39,6 +39,8 @@ var getMembers = function(id) {
 };
 
 var getLists = function(id) {
+  $('#cards').hide();
+  $('#lists').hide();
   Trello.get('boards/' + id + '/lists', function(r) {
     for(i in r) {
       l = r[i];
@@ -50,6 +52,7 @@ var getLists = function(id) {
       .text(l.name)
       .appendTo($('#lists ul'));
     }
+    $('#lists').show();
   });
 }
 
@@ -121,6 +124,7 @@ var getCards = function(id) {
         $('#cards').append($('<div class="clear"/>'));
       }
     }
+    $('#cards').show();
   });
 };
 

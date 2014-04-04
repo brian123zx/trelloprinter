@@ -25,6 +25,10 @@ body {
   float: left;
 }
 
+#lists {
+  display: none;
+}
+
 #boards ul, #lists ul {
   height: 150px;
   overflow-y: auto;
@@ -114,6 +118,7 @@ li {
 h2 {
   font-size: .36in;
   margin-top: 0;
+  font-weight: normal;
 }
 .clear {
   clear:both;
