@@ -147,6 +147,6 @@ h2 {
     page-break-before: always;
   }
   #header, #boards, #lists, #loggedout {
-    display: none;
+    display: none!important;
   }
 }
