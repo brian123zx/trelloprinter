@@ -28,14 +28,6 @@ var boardClicked = function() {
   $('#lists ul, #cards ul').empty();
   id = $(this).attr('data-id');
   getLists(id);
-  getMembers(id);
-};
-
-var members = [];
-var getMembers = function(id) {
-  Trello.get('boards/' + id + '/members', function(r) {
-    members = r;
-  });
 };
 
 var getLists = function(id) {
@@ -63,7 +55,7 @@ var listClicked = function() {
 }
 
 var getCards = function(id) {
-  Trello.get('lists/' + id + '/cards', function(r) {
+  Trello.get('lists/' + id + '/cards?members=true&member_fields=avatarHash,initials', function(r) {
     for(var i in r) {
       c = r[i];
       // parse points out of name
@@ -121,16 +113,21 @@ var getCards = function(id) {
 
       //process assigned members
       memberSection = $('<ul/>').addClass('members');
-      for(var j in c.idMembers) {
-        m = c.idMembers[j];
-        member = _.find(members, function(mem) {
-          return mem.id == m;
-        });
-        if(!member) continue;
-        memberSection.append(
-          $('<li/>')
-          .text(member.fullName.split(' ')[0])
-        );
+      for(var j in c.members) {
+        m = c.members[j];
+        if(!m) continue;
+        if(m.avatarHash)
+          memberSection.append(
+            $('<li/>')
+            .append($('<img />')
+              .attr('src', 'https://trello-avatars.s3.amazonaws.com/' + m.avatarHash + '/30.png')
+            )
+          );
+        else
+          memberSection.append(
+            $('<li/>')
+            .text(m.initials)
+          );
       }
       card.append(memberSection);
       $('#cards').append(card);
