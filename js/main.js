@@ -75,7 +75,15 @@ var getCards = function(id) {
       }
 
       // remove points from name
-      c.name = c.name.split('[')[0]
+      var title = c.name.split('[')[0]
+
+      var storyName = c.desc.split('\n');
+      if(storyName.length > 1)
+        storyName = storyName[0];
+      else
+        storyName = '';
+      var desc = c.desc.slice(storyName.length);
+
 
       card = $('<div/>')
       .attr({
@@ -91,11 +99,17 @@ var getCards = function(id) {
         )
         .append(
           $('<h2>')
-          .text(c.name)
+          .text(title)
         )
         .append(
           $('<div/>')
-          .html(marked(c.desc))
+            .text(storyName)
+            .addClass('storyName')
+        )
+        .append(
+          $('<div/>')
+          .html(marked(desc))
+          .addClass('description')
         )
       );
 

@@ -59,6 +59,10 @@ li {
     float: left;
     font-size: .2in;
 }
+.card .storyName {
+  font-size: 1.3em;
+  margin-bottom: .5em;
+}
 .card:nth-child(5n+2) {
   border-right: none;
 }
