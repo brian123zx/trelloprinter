@@ -120,7 +120,7 @@ var getCards = function(id) {
           memberSection.append(
             $('<li/>')
             .append($('<img />')
-              .attr('src', 'https://trello-avatars.s3.amazonaws.com/' + m.avatarHash + '/30.png')
+              .attr('src', 'https://trello-avatars.s3.amazonaws.com/' + m.avatarHash + '/50.png')
             )
           );
         else
