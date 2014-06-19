@@ -63,7 +63,7 @@ li {
   font-size: 1.3em;
   margin-bottom: .5em;
 }
-.card:nth-child(5n+2) {
+/*.card:nth-child(5n+2) {
   border-right: none;
 }
 .card:nth-child(5n+4) {
@@ -74,10 +74,16 @@ li {
 }
 .card:nth-child(5n+4) {
   border-bottom: none;
-}
+}*/
 /*.card:first-child {
   height: 2.8in;
 }*/
+.card:nth-child(5n+1) {
+  border-left: 2px dashed black;
+}
+.card:nth-child(5n+3) {
+  border-left: 2px dashed black;
+}
 .card .inner {
   position: absolute;
   top: 0em;
