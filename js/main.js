@@ -59,15 +59,20 @@ var getCards = function(id) {
     for(var i in r) {
       c = r[i];
       // parse points out of name
-      var points = c.name.split('[');
-      if (points[1]) {
-        points = points[1].replace(']', '').split(' ')[1]; //TODO: <3 potential runtime error
-      } else {
+      var points;
+      var pointsMatch = c.name.match(/^\(([0-9]+)\)/);
+      pointsMatch = pointsMatch || [];
+      if(pointsMatch.length > 1)
+        points = pointsMatch[1];
+      else
         points = '';
-      }
 
       // remove points from name
-      var title = c.name.split('[')[0]
+      var title;
+      if(pointsMatch.length)
+        title = c.name.substr(pointsMatch[0].length).trim();
+      else
+        title = c.name.trim();
 
       var storyName = c.desc.split('\n');
       if(storyName.length > 1)
